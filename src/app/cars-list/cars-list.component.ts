@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router }  from '@angular/router';
 
 import { CarsService } from './../cars.service';
 import { ICar } from './../car';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 const CAR_DATA: ICar[] = [
   {_id: "0",
-Couple_Nm: 0,
-Cylindree: 0,
-Cylindres: 0,
-Image: "",
-Indice_Perf: 0,
-Marque: "Loading...",
-Modele: "from Server",
-Prix: "",
-Puissance_ch: 0,
-Serie: "",
-VitesseMax_Kmh: 0,
+couple: 0,
+cylindree: 0,
+cylindres: 0,
+image: "",
+perf: 0,
+marque: "Loading...",
+modele: "from Server",
+prix: "",
+puissance: 0,
+serie: "",
+vitesse: 0,
 acc_0_100: 0,
 acc_0_200: 0,
 acc_1000m_DA: 0,
@@ -29,11 +30,11 @@ acc_400m_DA: 0}
   templateUrl: './cars-list.component.html',
   styleUrls: ['./cars-list.component.css']
 })
-export class CarsListComponent implements OnInit {
+export class CarsListComponent implements OnInit, AfterViewInit {
 
   public cars:ICar[] = [];
 
-  displayedColumns: string[] = ['Picture', 'Name', 'Power', 'Couple', 'Perf'];
+  displayedColumns: string[] = ['picture', 'marque', 'puissance', 'couple', 'perf'];
 
   dataSource = new MatTableDataSource(CAR_DATA);
 
@@ -44,16 +45,25 @@ export class CarsListComponent implements OnInit {
 
   constructor(private router: Router, private _carService: CarsService) { }
 
+
+@ViewChild(MatSort, {static: false}) sort: MatSort;
   ngOnInit() {
     this.carsLoading = true;
     this._carService.getCars()
     .subscribe(data => {
       this.carsLoading=false;
       this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort= this.sort;
     });
 
 
   }
+
+
+ngAfterViewInit(){
+  console.log("sort :"+this.sort);
+    this.dataSource.sort= this.sort;
+}
 
   displayCarsDetail(car){
     //console.log(car);

@@ -8,7 +8,7 @@ import { Observable } from "rxjs/Observable";
 })
 export class CarsService {
 
-private _url: string ='https://musclecars.herokuapp.com/carlist';
+private _url: string ='http://localhost:3000/carsmin'; //'https://musclecars.herokuapp.com/carlist';
 public currentCar:ICar ;
 
   constructor(private http: HttpClient) { }
