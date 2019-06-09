@@ -51,9 +51,9 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     this.carsLoading = true;
     this._carService.getCars()
     .subscribe(data => {
-      this.carsLoading=false;
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort= this.sort;
+      this.carsLoading=false;
     });
 
 

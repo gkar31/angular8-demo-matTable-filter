@@ -2,7 +2,7 @@
 
 
 
-<div >
+<div [style.display]="carsLoading ===false ? 'block' : 'none'">
 
   <mat-form-field >
       <input (keyup)="applyFilter($event.target.value)" matInput  placeholder="Search">
